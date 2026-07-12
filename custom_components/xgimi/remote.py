@@ -1,17 +1,17 @@
 """Support for the Xgimi Projector."""
 
-from collections.abc import Iterable
-from homeassistant.const import CONF_HOST, CONF_NAME
-from .pyxgimi import XgimiApi
 import asyncio
+from collections.abc import Iterable
+
+from homeassistant.components.remote import RemoteEntity
+from homeassistant.const import CONF_HOST, CONF_NAME
+
+from .pyxgimi import XgimiApi
 
 
-from homeassistant.components.remote import (
-    RemoteEntity,
-)
-
-
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+async def async_setup_platform(
+    hass, config, async_add_entities, discovery_info=None
+):
     """Set up the Xiaomi TV platform."""
 
     # If a hostname is set. Discovery is skipped.
@@ -63,7 +63,9 @@ class XgimiRemote(RemoteEntity):
         await asyncio.sleep(10)
         await self.async_update()
 
-    async def async_send_command(self, command: Iterable[str], **kwargs) -> None:
+    async def async_send_command(
+        self, command: Iterable[str], **kwargs
+    ) -> None:
         """Send a command to one of the devices."""
         for single_command in command:
             await self.xgimi_api.async_send_command(single_command)

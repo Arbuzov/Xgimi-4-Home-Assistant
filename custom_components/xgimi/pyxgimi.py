@@ -1,5 +1,6 @@
-import asyncudp
 import asyncio
+
+import asyncudp
 
 
 class XgimiApi:
@@ -26,7 +27,17 @@ class XgimiApi:
             "poweroff": "KEYPRESSES:30",
             "volumemute": "KEYPRESSES:113",
         }
-        self._advance_command = str({"action": 20000, "controlCmd": {"data": "command_holder", "delayTime": 0, "mode": 5, "time": 0, "type": 0}, "msgid": "2"})
+        self._advance_command = str({
+            "action": 20000,
+            "controlCmd": {
+                "data": "command_holder",
+                "delayTime": 0,
+                "mode": 5,
+                "time": 0,
+                "type": 0,
+            },
+            "msgid": "2",
+        })
 
     @property
     def is_on(self) -> bool:
